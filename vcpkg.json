@@ -1,0 +1,11 @@
+{
+  "name" : "srushti",
+  "version" : "1.0.0",
+  "dependencies" :
+  [
+    {
+      "name": "sdl2",
+      "version>=" : "2.28.5"
+    }
+  ]
+}

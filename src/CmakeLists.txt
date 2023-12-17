@@ -1,1 +1,8 @@
 add_executable(${PROJECT_NAME} application.cpp)
+
+find_package(SDL2 CONFIG REQUIRED)
+
+target_link_libraries(${PROJECT_NAME}
+    SDL2::SDL2
+)
+
