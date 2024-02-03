@@ -12,8 +12,15 @@ int main(int argc, char* argv[])
     std::cout << "Project Srushti..!!" << std::endl;
 
     Window window("Srushti", 640, 480);
+    std::cout << (window.init() ? "SUCCESS" : "FAILED") << std::endl;
 
-    std::cin.get();
+    while (window.getWindowStatus())
+    {
+        window.process();
+        window.render();
+    }
+    
+    window.cleanup();
 
     return 0;
 }
