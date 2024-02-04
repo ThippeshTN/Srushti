@@ -145,3 +145,14 @@ void Window::drawGrid(uint32_t offsetX, uint32_t offsetY, Colour colour)
         }
     }
 }
+
+void Window::drawRect(uint32_t minX, uint32_t minY, uint32_t maxX, uint32_t maxY, Colour colour)
+{
+    for (uint32_t i = minX; i < maxX; ++i)
+    {
+        for (uint32_t j = minY; j < maxY; ++j)
+        {
+            setPixel(i, j, colour);
+        }
+    }
+}

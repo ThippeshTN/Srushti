@@ -18,6 +18,7 @@ int main(int argc, char* argv[])
     {
         window.process();
         window.drawGrid(10, 10, Colour(50, 50, 50, 255));
+        window.drawRect(200, 200, 500, 500, Colour(0XFF, 0X50, 0X00, 0XFF));
         window.render();
     }
     

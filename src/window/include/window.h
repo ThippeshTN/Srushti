@@ -62,6 +62,7 @@ public:
 
     void setPixel(uint32_t posX, uint32_t posY, Colour colour);
     void drawGrid(uint32_t offsetX, uint32_t offsetY, Colour colour);
+    void drawRect(uint32_t minX, uint32_t minY, uint32_t maxX, uint32_t maxY, Colour Colour);
 
 private:
     void clearColourBuffer(Colour colour);
