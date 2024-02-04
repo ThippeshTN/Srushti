@@ -11,14 +11,13 @@ int main(int argc, char* argv[])
 {
     std::cout << "Project Srushti..!!" << std::endl;
 
-    Window window("Srushti", 640, 480);
+    Window window("Srushti", 1280, 720);
     std::cout << (window.init() ? "SUCCESS" : "FAILED") << std::endl;
 
     while (window.getWindowStatus())
     {
         window.process();
-        // window.setPidraxel(10,10, Colour(255, 100, 0, 255));
-        window.drawGrid(10, 10, Colour(255, 100, 0, 255));
+        window.drawGrid(10, 10, Colour(50, 50, 50, 255));
         window.render();
     }
     

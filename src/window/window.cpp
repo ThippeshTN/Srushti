@@ -83,12 +83,12 @@ void Window::render()
     SDL_SetRenderDrawColor(mRenderer, 100, 100, 100, 225);
     SDL_RenderClear(mRenderer);
 
-    SDL_UpdateTexture(mCOlourBufferTexture, NULL, mColourBuffer, sizeof(Colour));
+    SDL_UpdateTexture(mCOlourBufferTexture, NULL, mColourBuffer, sizeof(Colour) * mWidth);
 
     SDL_RenderCopy(mRenderer, mCOlourBufferTexture, NULL, NULL);
     
 
-    Colour colour = Colour(0x30, 0x30, 0x30, 0XFF);
+    Colour colour = Colour();
     clearColourBuffer(colour);
     SDL_RenderPresent(mRenderer);
 }
@@ -140,7 +140,7 @@ void Window::drawGrid(uint32_t offsetX, uint32_t offsetY, Colour colour)
     {
         for (uint32_t j = 0; j < mHeight; ++j)
         {
-            if(i % offsetY == 0)
+            if(((i % offsetX) == 0) && ((j % offsetY) == 0) )
                 setPixel(i, j, colour);
         }
     }
