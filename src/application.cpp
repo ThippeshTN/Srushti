@@ -17,6 +17,8 @@ int main(int argc, char* argv[])
     while (window.getWindowStatus())
     {
         window.process();
+        // window.setPidraxel(10,10, Colour(255, 100, 0, 255));
+        window.drawGrid(10, 10, Colour(255, 100, 0, 255));
         window.render();
     }
     

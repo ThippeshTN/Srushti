@@ -33,11 +33,17 @@ bool Window::init()
 
     mwindowStatus = true;
 
+    mCOlourBufferTexture = SDL_CreateTexture(mRenderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STREAMING, mWidth, mHeight);
+
+    mColourBuffer = new Colour[sizeof(Colour) * mWidth * mHeight];
+
     return mwindowStatus;
 }
 
 void Window::cleanup()
 {
+    delete[] mColourBuffer;
+    SDL_DestroyRenderer(mRenderer);
     SDL_DestroyWindow(mWindow);
     // Quit SDL2
     SDL_Quit();
@@ -45,10 +51,9 @@ void Window::cleanup()
     std::cout << "Widnow terminated" << std::endl;
 }
 
-
 void Window::process()
 {
-    //Process inputs
+    // Process inputs
     SDL_Event event;
     SDL_PollEvent(&event);
 
@@ -58,28 +63,33 @@ void Window::process()
         mwindowStatus = false;
         break;
     case SDL_KEYDOWN:
-        if(event.key.keysym.sym == SDLK_ESCAPE)
+        if (event.key.keysym.sym == SDLK_ESCAPE)
         {
             mwindowStatus = false;
         }
         break;
-    
+
     default:
         break;
     }
-
 }
 
 void Window::update()
 {
-
 }
 
 void Window::render()
 {
-    SDL_SetRenderDrawColor(mRenderer, 255, 120, 120, 225);
+    SDL_SetRenderDrawColor(mRenderer, 100, 100, 100, 225);
     SDL_RenderClear(mRenderer);
 
+    SDL_UpdateTexture(mCOlourBufferTexture, NULL, mColourBuffer, sizeof(Colour));
+
+    SDL_RenderCopy(mRenderer, mCOlourBufferTexture, NULL, NULL);
+    
+
+    Colour colour = Colour(0x30, 0x30, 0x30, 0XFF);
+    clearColourBuffer(colour);
     SDL_RenderPresent(mRenderer);
 }
 
@@ -103,8 +113,35 @@ void Window::setHeight(uint32_t height)
     mHeight = height;
 }
 
-
 bool Window::getWindowStatus()
 {
     return mwindowStatus;
+}
+
+void Window::clearColourBuffer(Colour colour)
+{
+    for (uint32_t i = 0; i < mHeight; ++i)
+    {
+        for (uint32_t j = 0; j < mWidth; ++j)
+        {
+                mColourBuffer[(i * mWidth) + j] = colour;
+        }
+    }
+}
+
+void Window::setPixel(uint32_t posX, uint32_t posY,Colour colour)
+{
+    mColourBuffer[(posY * mWidth) + posX] = colour;
+}
+
+void Window::drawGrid(uint32_t offsetX, uint32_t offsetY, Colour colour)
+{
+    for (uint32_t i = 0; i < mWidth; ++i)
+    {
+        for (uint32_t j = 0; j < mHeight; ++j)
+        {
+            if(i % offsetY == 0)
+                setPixel(i, j, colour);
+        }
+    }
 }
